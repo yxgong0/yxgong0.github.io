@@ -1,0 +1,124 @@
+---
+layout: post
+title:  "论文笔记: EnsNet: Ensconce Text in the Wild"
+date:   2020-02-27 15:02:48
+categories: Notes
+---
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+[2019 AAAI] EnsNet: Ensconce Text in the Wild
+* 文章 <https://arxiv.org/pdf/1812.00723.pdf>
+* 代码 <https://github.com/HCIILAB/Scene-Text-Removal>  
+
+<font size=4>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;论文提出了一种去除自然场景下的图像中的文本的方法。主要解决了两个问题：1.准确定位到图像中的文本位置；2.将文本区域图像替换为合理的的背景图像。主要的创新点在于：1.提出了一种“横向连接”（lateral connections）；2.设计了四个损失函数来确保正确地去除文本区域。  
+</font>  
+### 一、网络总体结构  
+![](/images/2020ensnet/network.png)  
+
+<font size=4>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;图中描述已十分清晰，网络由Generator(生成器), Discriminator(判别器) 和 Refined-loss modules三部分构成。
+</font>  
+### 二、生成器  
+<font size=4>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;生成器是典型的编码器-解码器结构，其中编码器为ResNet18，解码器由5个（kernel_size=2, stride=2, padding=1）的转置卷积层组成。除此之外，论文还提出了“横向连接”，用来将浅层的语义特征和深层的图像细节组合，结构如下：
+</font>
+![](/images/2020ensnet/lateral.png)  
+<font size=4>
+结构包括Transformaing Block和Up-sampling Block两个模块。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;1. Transforming Block部分包含三个部分，Shrinking层使用1×1的卷积进行降维，Nonlinear层使用两个3×3的卷积进行非线性变换，Expanding层使用1×1的卷积还原通道数。这种做法在获得更大的感受野的同时，避免了使用较大核的卷积，提高了网络的运行效率。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;2. 在Up-sampling Block中，转置卷积输出的特征图和Transforming Block输出的特征图进行逐元素相加。同时，转置卷积没有使用ReLU或Leaky ReLU作为激活函数，而是使用ELU，表达式为<br/>
+</font>
+<font size=2>
+$$ f(x)=\begin{cases}  
+x & x > 0 \\
+\alpha (e^x -1) & x \leq 0
+\end{cases} $$<br/>
+</font>
+<font size=4>
+这能使训练更稳定，因为ELU能够制住较大的负数。<br/>
+</font>
+### 三、Refined-loss Modules
+<font size=4>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这部分说明了提出的四个损失函数，分别为multiscale regression loss, content loss, texture loss 和 total variation loss。
+</font>
+#### 1.Multiscale regression loss 记为$L_m$
+<font size=4>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中$I_{out(i)}$是解码器第i层输出的特征图，$M_i$和$I_{gt(i)}$是对应此输出特征图尺寸的mask和groundtruth。这里的mask是将文本区域像素记为1，非文本区域像素记为0的binary mask。$\alpha$代表非文本区域所占的权重，原文设为6，$\lambda _i$是第i层所占的权重，原文为第3、4、5层分别设置了0.6，0.8，1.0。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这项损失函数计算了各层输出的特征图的文本区域和非文本区域相比gt的L1Loss，可以获取不同尺度图像的更多上下文信息。
+</font>
+#### 2.Content loss 记为$L_c$
+<font size=2>
+$$L_c=\sum _{n=1}^{N-1} ||A_n(I_{out})-A_n(I_{gt})||_1 + \sum _{n=1}^{N-1}||A_n(I_{comp})-A_n(I_{gt})||_1 $$
+</font>
+<font size=4>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$I_{gt}$和$I_{out}$是groundtruth和生成器输出图像，$I_{comp}$是将生成器输出图像的非文本区域替换为groundtruth得到的图像。$A_n$指的是第n层的Activation map，这里activation map的定义不太明确，从代码来看指的应该是在预训练vgg16模型中取到的feature map。这里从第1、2、3个pooling层进行了取值计算。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这项损失函数计算了预测图像和gt图像经VGG16输出的特征图的L1Loss，和仅保留文本区域的预测图像和gt图像经VGG16输出的特征图的差值的和。这项损失函数惩罚了预测图像和gt的特征的不同，有助于网络检测和去除文本区域。
+</font>
+#### 3.Texture loss 记为$L_T$
+<font size=2>
+$$L_{T_{out}}=\sum _{n=1}^{N-1} ||\frac{1}{C_nH_nW_n}((A_n(I_{out}))^T(A_n(I_{out}))-((A_n(I_{gt}))^T(A_n(I_{gt}))||_1$$
+$$L_{T_{comp}}=\sum _{n=1}^{N-1} ||\frac{1}{C_nH_nW_n}((A_n(I_{comp}))^T(A_n(I_{comp}))-((A_n(I_{gt}))^T(A_n(I_{gt}))||_1$$
+</font>
+<font size=4>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里公式是直接从论文中原样照抄的，我总觉得括号有点问题……不过也不重要，意思能明白就好。$C_n$，$H_n$和$W_n$是$A_n$这个activation map的形状。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这项损失函数计算了activation map矩阵所有列向量的Gram矩阵后再计算L1Loss，用于惩罚预测图像和gt纹理信息的不同。
+</font>
+#### 4.Total Variation loss 记为$L_{tv}$
+<font size=2>
+$$L_{tv}=\sum _{i,j}||I_{out}^{i,j}-I_{out}^{i+1,j}||_1+||I_{out}^{i,j}-I_{out}^{i,j+1}||_1$$
+</font>
+<font size=4>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里$i$,$j$指的是像素坐标。<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这项损失函数不涉及gt，而是计算预测图像内部相邻像素间的L1Loss，用于降低噪声。
+</font>
+### 四、判别器
+<font size=4>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;普通情况下训练GAN时，往往会将gt标注为1，预测图像标注为0，这样网络学习到的是整幅图像的信息，而我们希望网络专注于文本区域。因此，判别器参考了Patch GAN。Patch GAN的判别器将输入的图像映射为Patch矩阵，求出每个Patch为真样本的概率，并求均值作为最终输出。这里将图像映射为S×S(62×62)的Patch矩阵，每个Patch对应原图上N×N(70×70)的区域。label是这样给出的
+</font>
+<font size=2>
+$$f(x)=\begin{cases}  
+0 & if sum(M)>0 \\
+1 & otherwise
+\end{cases}$$
+</font>
+<font size=4>
+这里M是上文提到过的binary mask。通过这种方式，在训练过程中基本只有预测的文本区域的Patch（理论上文本应该已经被去除）被标注为0，而不是整幅预测的图像被标注为0。GAN损失函数的定义为
+</font>
+<font size=2>
+$$L_D=-\sum _{i=1}^{S^2}\frac{sum(M_i)}{N\times N}(1-L_i)(log(P_i))$$
+</font>
+<font size=4>
+$P_i$是判别器的输出，$L_i$是每个Patch的label。
+</font>
+### 五、实验
+#### 1.数据
+<font size=4>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;采用了合成的数据和真实的数据进行测试。数据合成的方法参考了[Synthetic Data for Text Localisation in Natural Images]{https://arxiv.org/pdf/1604.06646.pdf}，合成的数据在本论文的github主页可以找到；真实数据包括ICDAR2013和ICDAR2017 MLT数据集。
+</font>
+#### 2.测试指标
+<font size=4>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;测试指标使用图像修复使用的几项指标，包括L2 Error，PSNR，SSIM，AGE，pEPs和pCEPS。 其中PSNR和SSIM的值越高表示效果越好，其它指标均为越低越好。除此之外，还采用了文本检测网络对处理后的图像进行检测。这里使用的是训练好的DSSD网络，当得到的Recall，Precision和F-measure的值越低时，说明文本被去除的越干净，文本更无法被检测到，也就代表更好的效果。Ablations和Comparisons的结果列举如下
+</font>
+![](/images/2020ensnet/experiments.png)  
+<font size=4>
+可以看出，EnsNet在各个数据集下均取得了最好的效果。Baseline直接使用了简单的全卷积网络和L1Loss，可以看出虽然Baseline得出的R，P，F均较低，表明效果较好，但PSNR和SSIM值也较低，说明图像质量较差。因此仅使用R，P，F来代表网络性能是不合适的。同时EnsNet的速度达到了333FPS，运行速度较快。
+</font>
+
+
+
+
+
+
+
