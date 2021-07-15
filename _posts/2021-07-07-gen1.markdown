@@ -26,7 +26,8 @@ MathJax = {
 </font>
 <br/>
 <font size=3> 
-（一）</font>[<font size=3>源起-生成式模型的定义</font>](gen2-1.html)  
+（一）源起-生成式模型的定义  
+</font>
 <br/>
 <font size=3>
 （二）考古-深度学习之前的生成式模型  
