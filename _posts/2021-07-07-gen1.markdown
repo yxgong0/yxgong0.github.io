@@ -1,0 +1,69 @@
+---
+layout: post
+title:  "生成式模型的前世今生（一）序言"
+date:   2021-07-07 18:47:18
+categories: Notes
+---
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
+</script>
+
+[上一篇] 没有了
+<br/>
+<br/>
+<font size=3>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关于生成式模型我一直想要写这个系列，但一直没有鼓起这个勇气，因为这会是一个很庞大的工程。现在的汇总、解读以及笔记大都面向某个算法本身，或者面向某个系列的方法，很少有人真正全面地汇总了关于生成式模型的所有算法。今天，考虑到再不动工毕业前可能完不成这个系列了，终于开始动手写下了这第一章。这个系列基本是科普向，但有些内容可能要有一点点基础才能看懂，如果你对这个方向完全没有了解，可能需要结合其他的教材、笔记和解读才能看懂。总体上大致会按照如下几个部分来组织：  
+</font>
+<br/>
+<font size=3> 
+（一）源起-生成式模型的定义  
+</font>
+<br/>
+<font size=3>
+（二）考古-深度学习之前的生成式模型  
+</font>
+<br/>
+<font size=3>
+（三）当先-首次尝试深度学习的VAE  
+</font>
+<br/>
+<font size=3>
+（四）寻觅-生不逢时的Flow based算法框架  
+</font>
+<br/>
+<font size=3>
+（五）无双-春天的到来之GANs  
+</font>
+<br/>
+<font size=3>
+（六）昙花-其他的深度学习方法  
+</font>
+<br/>
+<font size=3>
+（七）落地-生成式模型的应用  
+</font>
+<br/>
+<font size=3>
+（八）星火-未来的燎原之力  
+</font>
+<br/>
+<font size=3>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每个部分相关的原理以及典型的算法、论文我都会介绍。这其中的内容大都出自我自己的理解，如有不准确之处还请指出。希望这个系列能够让读者对生成式模型有一个更加全面的理解。  
+</font>
+<br/>
+<br/>
+[下一篇] 源起-生成式模型的定义
+
+
+
+
