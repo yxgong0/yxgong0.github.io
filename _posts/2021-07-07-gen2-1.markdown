@@ -17,7 +17,7 @@ MathJax = {
 <script type="text/javascript" id="MathJax-script" async
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
 </script>
-[上一篇] [序言](www.baidu.com)
+[上一篇] [序言](gen1.html)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3>
 如果直接在网上搜索一下「生成模型」，你会找到它的定义：
@@ -94,4 +94,4 @@ MathJax = {
 这个例子来自于知乎用户@Microstrong，是在</font>[<font size=3>这篇文章</font>](https://zhuanlan.zhihu.com/p/74586507)<font size=3>中提到的。当年我还不太懂生成式模型，在看了这个例子之后，就彻底糊涂了。不过如果理解了生成式模型，这个例子倒也变得不那么难懂了。判别模型中，特征是羊的条件，我只能根据特征做判断；生成模型中，我能自己直接幻想出羊的特征。现在，我用我自己的方式又详细地解释了一遍生成式模型的含义，通篇基本没有用到数学公式和图表，希望这样能更通俗易懂地解释生成模型。如果你还是没有理解，我只能说声抱歉，希望以后有人能写出更加简洁易懂的解析吧。
 </font>
 
-[下一篇] [序言](www.baidu.com)
+[下一篇] 考古-深度学习之前的生成式模型
