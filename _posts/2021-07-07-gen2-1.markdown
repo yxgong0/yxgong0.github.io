@@ -17,8 +17,10 @@ MathJax = {
 <script type="text/javascript" id="MathJax-script" async
   src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js">
 </script>
-[上一篇] [序言](gen1.html)
 
+[上一篇] [序言](gen1.html)
+<br/>
+<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<font size=3>
 如果直接在网上搜索一下「生成模型」，你会找到它的定义：
 </font>   
