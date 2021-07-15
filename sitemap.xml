@@ -32,11 +32,18 @@
   <lastmod>2021-04-18T10:16:55+00:00</lastmod>
   <priority>0.80</priority>
 </url>
-<url>
-  <loc>https://alpaca07.github.io/notes/2020/02/27/ensnet.html</loc>
-  <lastmod>2021-04-18T10:16:55+00:00</lastmod>
-  <priority>0.80</priority>
-</url>
+  <url>
+    <loc>https://alpaca07.github.io/notes/2021/07/07/gen2-1.html</loc>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://alpaca07.github.io/notes/2021/07/07/gen1.html</loc>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://alpaca07.github.io/notes/2020/02/27/ensnet.html</loc>
+    <priority>1.00</priority>
+  </url>
 
 
 </urlset>
