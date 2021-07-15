@@ -26,7 +26,7 @@ MathJax = {
 </font>
 <br/>
 <font size=3> 
-（一）源起-生成式模型的定义  
+（一）[源起-生成式模型的定义](gen2-1.html)  
 </font>
 <br/>
 <font size=3>
