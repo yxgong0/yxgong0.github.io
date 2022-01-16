@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Alpaca07
+title: yxgong0
 email: yxgong@std.uestc.edu.cn
 description: >- # this means to ignore newlines until "baseurl:"
   Interested in Digital Image Processing, Computer Vision, Machine Learning, Pattern 
@@ -28,8 +28,8 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: None
-github_username:  Alpaca07
-
+github_username:  yxgong0
+encoding: utf-8
 # Build settings
 theme: minima
 plugins:
