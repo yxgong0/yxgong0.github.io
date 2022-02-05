@@ -47,7 +47,7 @@ MathJax = {
 ### 二、高斯模型和最大似然估计
 
 <font size=3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;显然，虽然机器学习方法想要实现学习数据分布的「自动化」，你也不能要求一开始就实现全自动，尤其是在那个理论尚不成熟，硬件条件也不佳的时代。想要求出一个联合概率分布，最简单直观的方式就是先人为地选定一个分布，然后让程序自动学习这个分布的参数。那么最常用的分布就是高斯分布了。现在，先来定义一个n维的随机向量$X=[X_1,X_2,...,X_n]^T$，其中$X_i$是一个随机变量。现在让它服从n维的高斯分布，其概率密度函数表示如下：</font>
-<br/>
+<br/><br/>
 <font size=3>$f(x_1,x_2,...,x_n)=\frac{1}{(2\pi)^\frac{n}{2}|\Sigma|^\frac{1}{2}}exp(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))$</font>
 <br/>
 <font size=3>其中，$x$和$\mu$都成为了向量，$\Sigma$代表随机向量中包含的所有的随机变量的协方差矩阵。矩阵的行列式和逆的求法这里就不再讲了。以$n=2$为例，假设随机变量$X_1,X_2$相互独立，那么二维的标准正态分布概率密度函数的图像也可以用代码画出来：</font>
@@ -109,7 +109,7 @@ MathJax = {
 <br/>
 <font size=3>解得：</font>
 <br/>
-<font size=3>$\mu = \frac{1}{n}\sum_{i=1}^{n}x_i=\overline{x}$<font size=3>，即</font>$x$<font size=3>的均值</font>
+<font size=3>$\mu = \frac{1}{n}\sum_{i=1}^{n}x_i=\overline{x}$，即$x$的均值</font>
 <br/>
 <font size=3>$\sigma^2=\frac{1}{n}\sum_{i=1}^{n}(x_i-\mu)^2$</font>
 <br/>
