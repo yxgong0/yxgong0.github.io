@@ -28,7 +28,7 @@ MathJax = {
 
 ### 一、从高斯分布说起
 
-<font size=3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;高斯分布，也叫正态分布，高中的数学课上就会讲这个东西。它最早是由法国数学家亚伯拉罕·棣莫弗求得的。对于一个随机变量</font>$X$<font size=3>服从正态分布，记为</font>$X\sim N(μ,σ^2)$<font size=3>。它的概率密度函数为：</font>  
+<font size=3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;高斯分布，也叫正态分布，高中的数学课上就会讲这个东西。它最早是由法国数学家亚伯拉罕·棣莫弗求得的。对于一个随机变量$X$服从正态分布，记为</font>$X\sim N(μ,σ^2)$<font size=3>。它的概率密度函数为：</font>  
 
 <font size=2>$f(x)=\frac{1}{\sqrt{2\pi}σ}exp(-\frac{(x-μ)^2}{2σ^2})$
 </font>  
