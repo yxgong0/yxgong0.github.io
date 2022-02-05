@@ -33,7 +33,7 @@ MathJax = {
 </font>
 <font size=3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用代码可以画一个它的函数图像：</font>
 
-![image-20210818162941367](image1.png)
+![高斯分布](/images/2021gen3-1-1/image1.png)
 
 <font size=3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里我们假设了期望值</font>$μ=0$<font size=3>，标准差</font>$σ=1$<font size=3>，这时称为标准正态分布。可以看到，它的概率密度函数曲线有一个峰；它不像骆驼有两个峰，不要弄混了。因此，这个曲线也被称为「钟形曲线」。这个钟是寺庙里老和尚敲的钟，不是家里墙上挂的钟。</font>
 
