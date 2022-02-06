@@ -137,7 +137,7 @@ MathJax = {
 <br/>
 <font size=3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在我们从数学的角度描述一下EM算法的流程。假设我们观测到的数据为$x=\{x_1,x_2,...,x_n\}$。隐变量，也就是一个数据属于哪个子分布，记为$z=\{z_1,z_2,...z_K\}$，其中$z_k$表示数据属于第$k$个子分布。混合高斯分布的参数，包括均值和方差，记为$\theta$。于是条件概率分布$p(z|x,\theta)$表示在给定观测值和参数的条件下，这组观测值属于某个子分布的概率。</font>
 <br/>
-<font size=3>$1. 初始化模型参数\theta$</font>
+<font size=3>$1. 初始化模型参数\theta。$</font>
 <br/>
 <font size=3>$2. E步：对每个数据x_i，计算其属于子分布z_k的概率p(z_k|x_i,\theta)，并得到联合分布的条件概率的数学期望E(z_k|x_i,\theta)。$</font>
 <br/>
